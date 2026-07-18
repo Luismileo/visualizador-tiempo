@@ -7,10 +7,14 @@ import { RelojBinario } from '../clocks/reloj-binario/reloj-binario';
 import { RelojAnillos } from '../clocks/reloj-anillos/reloj-anillos';
 import { RelojEdificios } from '../clocks/reloj-edificios/reloj-edificios';
 import { RelojArena } from '../clocks/reloj-arena/reloj-arena';
+import { RelojAstros } from '../clocks/reloj-astros/reloj-astros';
+import { RelojBacterias } from '../clocks/reloj-bacterias/reloj-bacterias';
+import { RelojMar } from '../clocks/reloj-mar/reloj-mar';
+import { RelojMetras} from '../clocks/reloj-metras/reloj-metras';
 
 @Component({
   selector: 'app-panel',
-  imports: [RelojDigital, RelojAnalogico, RelojBinario, RelojAnillos, RelojEdificios, RelojArena],
+  imports: [RelojDigital, RelojAnalogico, RelojBinario, RelojAnillos, RelojEdificios, RelojArena, RelojAstros, RelojBacterias, RelojMar, RelojMetras],
   templateUrl: './panel.html',
   styleUrl: './panel.css'
 })
@@ -27,10 +31,10 @@ export class PanelComponent {
     { id: 'binario', name: '4. Reloj Binario' },
     { id: 'edificios', name: '5. Reloj Edificios' },
     { id: 'arena', name: '6. Reloj Arena' },
-    { id: 'reloj7', name: '7. Vacío' },
-    { id: 'reloj8', name: '8. Vacío' },
-    { id: 'reloj9', name: '9. Vacío' },
-    { id: 'reloj10', name: '10. Vacío' }
+    { id: 'astros', name: '7. Reloj Astros' },
+    { id: 'bacterias', name: '8. Reloj Bacterias' },
+    { id: 'mar', name: '9. Reloj Mar' },
+    { id: 'metras', name: '10. Reloj Metras' }
   ];
 
   addHour() {

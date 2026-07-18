@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RelojOvni } from './reloj-ovni';
+import { RelojMetras } from './reloj-metras';
 
-describe('RelojOvni', () => {
-  let component: RelojOvni;
-  let fixture: ComponentFixture<RelojOvni>;
+describe('RelojMetras', () => {
+  let component: RelojMetras;
+  let fixture: ComponentFixture<RelojMetras>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RelojOvni],
+      imports: [RelojMetras],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(RelojOvni);
+    fixture = TestBed.createComponent(RelojMetras);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

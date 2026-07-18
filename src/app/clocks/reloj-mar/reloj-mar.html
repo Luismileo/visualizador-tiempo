@@ -1,1 +1,26 @@
-<p>reloj-mar works!</p>
+<div class="sea-scene">
+  <!-- Fondo y Cielo -->
+  <div class="sky"></div>
+  
+  <!-- Nivel del Mar y Peces -->
+  <div class="ocean">
+    @for (fish of fishes(); track fish.id) {
+      <div 
+        class="fish {{ fish.type }}"
+        [class.flip]="fish.vx < 0" 
+        [style.left.px]="fish.x"
+        [style.top.px]="fish.y"
+      ></div>
+    }
+  </div>
+
+  <!-- Acantilado, Grama y Farol -->
+  <div class="cliff-container">
+    <div class="lighthouse">
+      <!-- El foco parpadeante en la punta -->
+      <div class="light-bulb" [class.on]="isLighthouseOn()"></div>
+    </div>
+    <div class="grass-top"></div>
+    <div class="cliff"></div>
+  </div>
+</div>

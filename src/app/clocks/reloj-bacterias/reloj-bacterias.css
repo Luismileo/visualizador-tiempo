@@ -1,0 +1,105 @@
+:host {
+  display: block;
+  position: fixed;
+  top: 70px;
+  left: 260px;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  overflow: hidden;
+  
+  /* --- FONDO ORGÁNICO MICROSCÓPICO (Simulación de Túnel) --- */
+  background-color: #171738; /* Color base oscuro para el fondo del túnel */
+  
+  background-image: 
+    /* 1. Rayo de luz celestial entrando desde arriba */
+    radial-gradient(ellipse at 50% -20%, rgba(200, 180, 255, 0.25) 0%, transparent 60%),
+    
+    /* 2. Textura celular sutil (puntitos de vellosidades) */
+    repeating-radial-gradient(circle at 20px 20px, rgba(255, 143, 163, 0.07) 0px, rgba(255, 143, 163, 0.07) 4px, transparent 5px, transparent 30px),
+    
+    /* 3. El cuerpo del túnel: oscuro en el centro-arriba, carnoso en los bordes */
+    radial-gradient(ellipse at 50% 25%, 
+      transparent 5%, 
+      rgba(74, 25, 66, 0.7) 30%, 
+      rgba(137, 49, 104, 0.85) 60%, 
+      rgba(230, 92, 123, 0.95) 85%, 
+      #ff8fa3 100%);
+      
+  /* 4. Sombra interior para darle el efecto de viñeta y profundidad 3D */
+  box-shadow: 
+    inset 0 0 150px rgba(10, 5, 25, 0.9),
+    inset 0 -100px 150px rgba(230, 92, 123, 0.3);
+}
+.time-overlay {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: monospace;
+  font-size: 2rem;
+  font-weight: bold;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.bacteria {
+  position: absolute;
+  border-radius: 50%;
+  will-change: left, top, transform;
+}
+
+/* 1. HORAS (Rojas - Estilo "Virus" con espinas) */
+.bacteria.hour {
+  background-color: #ef4444;
+  border: 4px dashed #7f1d1d; /* Borde punteado que simula espinas */
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+  z-index: 1;
+}
+
+/* 2. MINUTOS (Azules - Estilo "Célula" con núcleo visible) */
+.bacteria.minute {
+  background-color: #3b82f6;
+  border: 2px solid #1e3a8a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+/* Núcleo interno de la célula azul */
+.bacteria.minute::before {
+  content: '';
+  width: 40%;
+  height: 40%;
+  background-color: #bfdbfe;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+/* 3. SEGUNDOS (Amarillos - Estilo "Coco", pequeños y simples) */
+.bacteria.second {
+  background-color: #fbbf24;
+  border: 1px solid #b45309;
+  z-index: 3;
+}
+
+/* --- ANIMACIONES OPTIMIZADAS --- */
+.bacteria.mitosis {
+  /* Usamos solo opacidad y escala para no ahogar la GPU */
+  animation: mitosisSplit 0.5s ease-out forwards;
+}
+
+.bacteria.exploding {
+  animation: splatOut 0.4s ease-in forwards;
+}
+
+@keyframes mitosisSplit {
+  0% { transform: scale(0.2); opacity: 0; }
+  70% { transform: scale(1.2); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes splatOut {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}

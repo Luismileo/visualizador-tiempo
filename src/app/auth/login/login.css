@@ -1,7 +1,7 @@
 :host {
   display: block;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: #0f172a; /* Fondo oscuro slate */
+  background: #0f172a; /* Fondo oscuro slate original */
   min-height: 100vh;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .login-card {
-  background: #1e293b; /* Tarjeta un poco más clara */
+  background: #1e293b;
   padding: 40px;
   border-radius: 16px;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
@@ -29,7 +29,7 @@
 }
 
 .login-header h2 {
-  color: #38bdf8; /* Azul cielo tecnológico */
+  color: #38bdf8;
   margin: 0 0 8px 0;
   font-size: 28px;
   font-weight: 700;
@@ -71,10 +71,23 @@
   box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
 }
 
+/* Alerta de Error (Roja) */
 .error-alert {
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid rgba(239, 68, 68, 0.2);
   color: #fca5a5;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Alerta de Éxito (Verde) */
+.success-alert {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
   padding: 12px;
   border-radius: 8px;
   font-size: 13px;
@@ -107,4 +120,30 @@
   background: #334155;
   color: #64748b;
   cursor: not-allowed;
+}
+
+/* Enlace para cambiar entre Login y Registro */
+.toggle-mode {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.toggle-mode p {
+  color: #94a3b8;
+  font-size: 13px;
+  margin: 0;
+}
+
+.toggle-mode a {
+  color: #38bdf8;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 5px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.toggle-mode a:hover {
+  color: #7dd3fc;
+  text-decoration: underline;
 }

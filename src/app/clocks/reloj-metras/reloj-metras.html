@@ -1,0 +1,36 @@
+<div class="metras-board">
+  
+  <!-- Rampa de Segundos (Arriba - Rojo) -->
+  <div class="ramp-row" [class.flushing]="seconds().isFlushing">
+    <div class="label">SEC</div>
+    <div class="ramp">
+      @for (metra of seconds().metras; track $index) {
+        <div class="metra sec-metra">{{ metra }}</div>
+      }
+      <div class="door"></div>
+    </div>
+  </div>
+
+  <!-- Rampa de Minutos (Medio - Verde) -->
+  <div class="ramp-row" [class.flushing]="minutes().isFlushing">
+    <div class="label">MIN</div>
+    <div class="ramp">
+      @for (metra of minutes().metras; track $index) {
+        <div class="metra min-metra">{{ metra }}</div>
+      }
+      <div class="door"></div>
+    </div>
+  </div>
+
+  <!-- Rampa de Horas (Abajo - Azul) -->
+  <div class="ramp-row" [class.flushing]="hours().isFlushing">
+    <div class="label">HRS</div>
+    <div class="ramp">
+      @for (metra of hours().metras; track $index) {
+        <div class="metra hour-metra">{{ metra }}</div>
+      }
+      <div class="door"></div>
+    </div>
+  </div>
+
+</div>

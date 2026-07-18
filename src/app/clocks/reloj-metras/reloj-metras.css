@@ -1,0 +1,119 @@
+:host {
+  display: block;
+}
+
+.metras-board {
+  display: flex;
+  flex-direction: column;
+  gap: 50px; 
+}
+
+.ramp-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.label {
+  color: #94a3b8;
+  font-weight: 800;
+  font-size: 14px;
+  width: 35px;
+  text-align: right;
+  letter-spacing: 1px;
+}
+
+/* Riel inclinado con flex-direction invertido */
+.ramp {
+  width: 320px;
+  height: 8px;
+  background: #334155; 
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  
+  /* Invierte el orden visual para que las nuevas metras nazcan a la izquierda */
+  flex-direction: row-reverse; 
+  justify-content: flex-start; /* Ancla el primer elemento a la derecha (contra la puerta) */
+  align-items: flex-end;
+  gap: 2px; /* Espaciado automático entre metras */
+  
+  padding: 0 5px;
+  transform: rotate(5deg); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Puerta/Tope al final de la rampa */
+.door {
+  position: absolute;
+  right: -3px;
+  bottom: -5px;
+  width: 6px;
+  height: 35px;
+  background-color: #1e293b;
+  border: 1px solid #475569;
+  border-radius: 3px;
+  z-index: 10;
+  transform-origin: bottom center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Diseño base de la metra */
+.metra {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 2px; 
+  z-index: 5;
+  animation: rollIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Colores unificados con Glow + Relieve de esfera */
+.sec-metra { 
+  background: radial-gradient(circle at 30% 30%, #f87171, #ef4444); 
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.7), inset -4px -4px 8px rgba(0,0,0,0.5), inset 2px 2px 6px rgba(255,255,255,0.5);
+}
+.min-metra { 
+  background: radial-gradient(circle at 30% 30%, #34d399, #10b981); 
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.7), inset -4px -4px 8px rgba(0,0,0,0.5), inset 2px 2px 6px rgba(255,255,255,0.5);
+}
+.hour-metra { 
+  background: radial-gradient(circle at 30% 30%, #7dd3fc, #38bdf8);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.7), inset -4px -4px 8px rgba(0,0,0,0.5), inset 2px 2px 6px rgba(255,255,255,0.5); 
+}
+
+/* Animación de Entrada: Nacen a la izquierda y ruedan hacia su sitio final */
+@keyframes rollIn {
+  from {
+    opacity: 0;
+    transform: translateX(-60px) rotate(-180deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+/* === ESTADOS DE VACIADO (FLUSHING) === */
+
+.flushing .door {
+  transform: rotate(90deg);
+}
+
+.flushing .metra {
+  animation: rollOut 0.6s ease-in forwards;
+}
+
+/* Animación de salida: Las metras se caen hacia la derecha */
+@keyframes rollOut {
+  to {
+    opacity: 0;
+    transform: translateX(200px) rotate(360deg);
+  }
+}

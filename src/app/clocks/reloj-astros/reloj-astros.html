@@ -1,1 +1,32 @@
-<p>reloj-astros works!</p>
+<div class="sky-container" [attr.data-phase]="astroState().phase">
+  
+  <!-- Estrellas Dinámicas -->
+  <div class="stars"></div>
+
+  <!-- RUEDA CELESTIAL: Este contenedor gira 360° -->
+  <div class="celestial-wheel" [style.transform]="'rotate(' + astroState().rotation + 'deg)'">
+    <div class="sun-container">
+      <div class="sun"></div>
+    </div>
+    <div class="moon-container">
+      <div class="moon"></div>
+      <!-- Cráteres lunares para más realismo -->
+      <div class="crater c1"></div>
+      <div class="crater c2"></div>
+    </div>
+  </div>
+
+  <!-- PAISAJE FRONTAL (Montañas y suelo) -->
+  <div class="landscape">
+    <div class="mountain m-back left"></div>
+    <div class="mountain m-back right"></div>
+    <div class="mountain m-front"></div>
+    <div class="ground"></div>
+  </div>
+
+  <!-- Marcador de Tiempo -->
+  <div class="time-display">
+    {{ astroState().timeLabel }}
+  </div>
+
+</div>

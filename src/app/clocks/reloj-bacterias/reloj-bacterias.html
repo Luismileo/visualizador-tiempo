@@ -1,1 +1,17 @@
-<p>reloj-bacterias works!</p>
+<div class="petri-dish-environment">
+  <div class="time-overlay">
+    {{ currentTime() | date:'HH:mm:ss' }}
+  </div>
+
+  @for (bac of bacterias(); track bac.id) {
+    <div 
+      class="bacteria {{ bac.type }}" 
+      [class.exploding]="bac.exploding"
+      [class.mitosis]="bac.mitosis"
+      [style.width.px]="bac.radius * 2"
+      [style.height.px]="bac.radius * 2"
+      [style.left.px]="bac.x - bac.radius"
+      [style.top.px]="bac.y - bac.radius"
+    ></div>
+  }
+</div>

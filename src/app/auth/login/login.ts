@@ -1,24 +1,28 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule], // Importamos el módulo para formularios reactivos
+  standalone: true,
+  imports: [ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class LoginComponent {
   private router = inject(Router);
+  private authService = inject(AuthService); // Inyectamos el nuevo servicio
 
-  // Señal para manejar mensajes de error en la interfaz
+  isLoginMode = signal<boolean>(true); // Controla si estamos en Login o Registro
   errorMessage = signal<string | null>(null);
+  successMessage = signal<string | null>(null);
 
-  // Declaramos el formulario reactivo con sus validaciones básicas
   loginForm = new FormGroup({
     username: new FormControl('', { 
       nonNullable: true, 
-      validators: [Validators.required] 
+      // Agregamos límite máximo y mínimo
+      validators: [Validators.required, Validators.minLength(4), Validators.maxLength(15)] 
     }),
     password: new FormControl('', { 
       nonNullable: true, 
@@ -26,26 +30,46 @@ export class LoginComponent {
     })
   });
 
+  toggleMode() {
+    this.isLoginMode.set(!this.isLoginMode());
+    this.errorMessage.set(null);
+    this.successMessage.set(null);
+    this.loginForm.reset();
+  }
+
   onSubmit() {
-    if (this.loginForm.invalid) {
-      this.errorMessage.set('Por favor, rellena todos los campos correctamente.');
+    const { username, password } = this.loginForm.getRawValue();
+    
+    // .trim() elimina los espacios al principio y al final ("  luis  " -> "luis")
+    const cleanUsername = username.trim();
+
+    // Validamos que no hayan enviado puros espacios o menos de 4 letras reales
+    if (this.loginForm.invalid || cleanUsername.length < 4) {
+      this.errorMessage.set('Datos inválidos. Usa entre 4 y 15 caracteres (sin espacios vacíos).');
+      this.successMessage.set(null);
       return;
     }
 
-    // Extraemos los valores del formulario de forma segura
-    const { username, password } = this.loginForm.getRawValue();
-
-    // Validación simulada para la entrega del proyecto
-    if (username === 'admin' && password === '1234') {
-      this.errorMessage.set(null);
-      
-      // Guardamos el estado en el LocalStorage para el AuthGuard
-      localStorage.setItem('sesion_activa', 'true');
-      
-      // Redirigimos al panel de los relojes
-      this.router.navigate(['/relojes']);
+    if (this.isLoginMode()) {
+      // MODO INICIO DE SESIÓN
+      if (this.authService.loginUser(cleanUsername, password)) {
+        this.errorMessage.set(null);
+        localStorage.setItem('sesion_activa', 'true');
+        this.router.navigate(['/relojes']);
+      } else {
+        this.errorMessage.set('Usuario o contraseña incorrectos.');
+      }
     } else {
-      this.errorMessage.set('Usuario o contraseña incorrectos.');
+      // MODO REGISTRO
+      if (this.authService.registerUser(cleanUsername, password)) {
+        this.successMessage.set('¡Registro exitoso! Ahora puedes iniciar sesión.');
+        this.errorMessage.set(null);
+        this.isLoginMode.set(true); // Lo devolvemos al modo login
+        this.loginForm.reset();
+      } else {
+        this.errorMessage.set('El usuario ya existe. Intenta con otro nombre.');
+        this.successMessage.set(null);
+      }
     }
   }
 }

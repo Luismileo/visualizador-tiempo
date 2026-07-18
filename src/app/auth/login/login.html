@@ -2,7 +2,7 @@
   <div class="login-card">
     <div class="login-header">
       <h2>CronosLab</h2>
-      <p>Visualizador Avanzado de Tiempo</p>
+      <p>{{ isLoginMode() ? 'Visualizador Avanzado de Tiempo' : 'Registro de Nuevo Ingeniero' }}</p>
     </div>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -14,6 +14,7 @@
           formControlName="username" 
           placeholder="Ej. admin"
           autocomplete="off"
+          maxlength="15"
         />
       </div>
 
@@ -27,16 +28,32 @@
         />
       </div>
 
-      <!-- Alerta dinámica usando las nuevas condicionales de Angular 17+ -->
+      <!-- Alertas dinámicas -->
       @if (errorMessage()) {
         <div class="error-alert">
           {{ errorMessage() }}
         </div>
       }
+      
+      @if (successMessage()) {
+        <div class="success-alert">
+          {{ successMessage() }}
+        </div>
+      }
 
       <button type="submit" [disabled]="loginForm.invalid" class="btn-submit">
-        Ingresar al Sistema
+        {{ isLoginMode() ? 'Ingresar al Sistema' : 'Crear Cuenta' }}
       </button>
+
+      <!-- Botón para alternar el modo -->
+      <div class="toggle-mode">
+        <p>
+          {{ isLoginMode() ? '¿No tienes acceso?' : '¿Ya tienes una cuenta?' }}
+          <a (click)="toggleMode()">
+            {{ isLoginMode() ? 'Regístrate aquí' : 'Inicia Sesión' }}
+          </a>
+        </p>
+      </div>
     </form>
   </div>
 </div>
