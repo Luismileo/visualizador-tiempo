@@ -1,1 +1,4 @@
-<p>reloj-digital works!</p>
+<div class="digital-container">
+  <!-- 'HH:mm:ss' asegura el formato 24h con ceros a la izquierda -->
+  <h1>{{ timeService.currentTime() | date:'HH:mm:ss' }}</h1>
+</div>

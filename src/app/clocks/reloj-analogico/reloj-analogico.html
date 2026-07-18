@@ -1,1 +1,7 @@
-<p>reloj-analogico works!</p>
+<div class="clock-face">
+  <!-- Las agujas giran dinámicamente inyectando el CSS de rotación -->
+  <div class="hand hour-hand" [style.transform]="'rotate(' + hourRotation() + 'deg)'"></div>
+  <div class="hand min-hand" [style.transform]="'rotate(' + minRotation() + 'deg)'"></div>
+  <div class="hand sec-hand" [style.transform]="'rotate(' + secRotation() + 'deg)'"></div>
+  <div class="center-dot"></div>
+</div>

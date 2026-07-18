@@ -1,0 +1,59 @@
+.rings-clock-wrapper {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rings-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Rieles de fondo */
+.ring-track {
+  fill: none;
+  stroke: #172033;
+  stroke-width: 11px;
+}
+
+/* Barras de progreso de color */
+.ring-progress {
+  fill: none;
+  stroke-width: 11px;
+  transform: rotate(-90deg); /* El progreso inicia arriba */
+  transform-origin: center;
+  /* Eliminamos "transition" para que el renderizado por JS a 60fps dibuje el barrido directamente */
+}
+
+/* Capas cortadoras (Divisores/Nudges) */
+.ring-divider {
+  fill: none;
+  stroke: #1e293b; /* Color idéntico al fondo del panel */
+  stroke-width: 13px;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  pointer-events: none;
+}
+
+/* --- COLORES Y EFECTOS GLOW --- */
+
+/* Segundos - Rojo (Exterior) */
+.ring-seconds {
+  stroke: #ef4444;
+  filter: url(#glow-red);
+}
+
+/* Minutos - Verde (Medio) */
+.ring-minutes {
+  stroke: #10b981;
+  filter: url(#glow-green);
+}
+
+/* Horas - Azul (Interior) */
+.ring-hours {
+  stroke: #38bdf8;
+  filter: url(#glow-blue);
+}

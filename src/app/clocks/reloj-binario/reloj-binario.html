@@ -1,1 +1,43 @@
-<p>reloj-binario works!</p>
+<div class="binary-board">
+  <!-- COLUMNAS DE HORA -->
+  <div class="column">
+    @for (bit of binaryState().hours.tens; track $index) {
+      <div class="dot" [class.on]="bit"></div>
+    }
+  </div>
+  <div class="column">
+    @for (bit of binaryState().hours.units; track $index) {
+      <div class="dot" [class.on]="bit"></div>
+    }
+  </div>
+
+  <!-- Separador -->
+  <div class="spacer"></div> 
+
+  <!-- COLUMNAS DE MINUTOS -->
+  <div class="column">
+    @for (bit of binaryState().minutes.tens; track $index) {
+      <div class="dot min-dot" [class.on]="bit"></div>
+    }
+  </div>
+  <div class="column">
+    @for (bit of binaryState().minutes.units; track $index) {
+      <div class="dot min-dot" [class.on]="bit"></div>
+    }
+  </div>
+
+  <!-- Separador -->
+  <div class="spacer"></div> 
+
+  <!-- COLUMNAS DE SEGUNDOS -->
+  <div class="column">
+    @for (bit of binaryState().seconds.tens; track $index) {
+      <div class="dot sec-dot" [class.on]="bit"></div>
+    }
+  </div>
+  <div class="column">
+    @for (bit of binaryState().seconds.units; track $index) {
+      <div class="dot sec-dot" [class.on]="bit"></div>
+    }
+  </div>
+</div>

@@ -6,10 +6,10 @@ export const routes: Routes = [
   // Ruta pública: Cualquiera puede entrar al login
   { path: 'login', component: LoginComponent },
 
-  // Ruta protegida: Solo entra si el authGuard retorna 'true'
+ // Ruta protegida: Solo entra si el authGuard retorna 'true'
   { 
     path: 'relojes', 
-    loadComponent: () => import('./app').then(m => m.AppComponent), 
+    loadComponent: () => import('./dashboard/panel').then(m => m.PanelComponent), 
     canActivate: [authGuard] 
   },
 

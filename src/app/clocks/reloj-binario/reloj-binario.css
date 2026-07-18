@@ -1,0 +1,27 @@
+.binary-board {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Alinea los puntos desde abajo hacia arriba */
+  gap: 8px;
+}
+
+.dot {
+  width: 18px;
+  height: 18px;
+  background: #334155;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+/* Horas en rojo, minutos en verde, segundos en azul (usando las clases del HTML) */
+.column:nth-child(1) .dot.on, .column:nth-child(2) .dot.on { background: #ef4444; box-shadow: 0 0 10px #ef4444; }
+.column:nth-child(4) .dot.on, .column:nth-child(5) .dot.on { background: #10b981; box-shadow: 0 0 10px #10b981; }
+.column:nth-child(7) .dot.on, .column:nth-child(8) .dot.on { background: #38bdf8; box-shadow: 0 0 10px #38bdf8; }
+
+.spacer { width: 10px; }

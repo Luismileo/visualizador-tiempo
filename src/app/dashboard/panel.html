@@ -1,0 +1,56 @@
+<div class="app-layout">
+  
+  <!-- SIDE NAV BAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>CronosLab</h2>
+      <p>Modelos de Tiempo</p>
+    </div>
+    
+    <nav class="nav-menu">
+      @for (clock of clockList; track clock.id) {
+        <button 
+          class="nav-item" 
+          [class.active]="selectedClock() === clock.id"
+          (click)="selectedClock.set(clock.id)">
+          {{ clock.name }}
+        </button>
+      }
+    </nav>
+  </aside>
+
+  <!-- ÁREA PRINCIPAL -->
+  <div class="main-content">
+    
+    <!-- TOP BAR (Navegación Superior) -->
+    <header class="topbar">
+      <div class="time-simulator">
+        <span class="simulator-label">Simulador:</span>
+        <button class="btn-time" (click)="addHour()">+1 Hora</button>
+        <button class="btn-time" (click)="addMinute()">+1 Minuto</button>
+        <button class="btn-reset" (click)="resetTime()">Restaurar</button>
+      </div>
+      
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </header>
+
+    <!-- VISUALIZADOR DEL RELOJ SELECCIONADO -->
+    <main class="clock-display-area">
+      <div class="clock-container">
+        @switch (selectedClock()) {
+          @case ('digital') { <app-reloj-digital /> }
+          @case ('analogico') { <app-reloj-analogico /> }
+          @case ('anillos') { <app-reloj-anillos /> }
+          @case ('binario') { <app-reloj-binario /> }
+          @default { 
+            <div class="placeholder">
+              <h3>Reloj en construcción...</h3>
+              <p>Este modelo estará disponible pronto.</p>
+            </div> 
+          }
+        }
+      </div>
+    </main>
+    
+  </div>
+</div>
