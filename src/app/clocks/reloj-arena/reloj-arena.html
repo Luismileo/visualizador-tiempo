@@ -1,1 +1,58 @@
-<p>reloj-arena works!</p>
+<div class="environment-wrapper" [class.night-mode]="clockState().isNight">
+  
+  <!-- Paisaje Simplificado (Nubes de día, Estrellas de noche) -->
+  <div class="sky-elements">
+    <div class="sun"></div>
+    <div class="moon"></div>
+    
+    <!-- Estrellas Limpias -->
+    <div class="stars-container">
+      <div class="star s1"></div>
+      <div class="star s2"></div>
+      <div class="star s3"></div>
+      <div class="star s4"></div>
+    </div>
+    
+    <!-- Nubes Minimalistas -->
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+  </div>
+
+  <!-- RELOJ DE ARENA ULTRA-MINIMALISTA (Gira por completo) -->
+  <div class="hourglass-simple" [class.flipped]="clockState().isNight">
+    <!-- Tapa Superior -->
+    <div class="flat-cap"></div>
+    
+    <!-- Ampolla Superior -->
+    <div class="bulb top-bulb">
+      <!-- Chorro interno de noche (cuando este bulbo está físicamente abajo y llenándose) -->
+      @if (clockState().isNight) {
+        <div class="interior-stream fill-top"></div>
+      }
+      <div class="sand-body" [style.height.%]="clockState().topSand"></div>
+    </div>
+    
+    <!-- Cuello Conector -->
+    <div class="neck">
+      <div class="line-stream" [class.active]="clockState().isFalling"></div>
+    </div>
+    
+    <!-- Ampolla Inferior -->
+    <div class="bulb bottom-bulb">
+      <!-- Chorro interno de día (cuando este bulbo está físicamente abajo y llenándose) -->
+      @if (!clockState().isNight) {
+        <div class="interior-stream fill-bottom"></div>
+      }
+      <div class="sand-body" [style.height.%]="clockState().bottomSand"></div>
+    </div>
+    
+    <!-- Tapa Inferior -->
+    <div class="flat-cap"></div>
+  </div>
+
+  <!-- Marcador de Tiempo -->
+  <div class="ambient-counter">
+    {{ clockState().label }}
+  </div>
+
+</div>

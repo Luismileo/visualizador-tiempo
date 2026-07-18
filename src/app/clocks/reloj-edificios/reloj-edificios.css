@@ -1,0 +1,131 @@
+/* ROMPEMOS EL CONTENEDOR: Cubrimos todo el espacio disponible sin chocar con barras laterales/superiores */
+:host {
+  position: fixed;
+  top: 70px;  /* Altura exacta de tu topbar */
+  left: 260px; /* Ancho exacto de tu sidebar */
+  right: 0;
+  bottom: 0;
+  z-index: 50; /* Por encima de la caja gris inicial .clock-container */
+  
+  /* Nuevo degradado nocturno realístico, profundo y oscuro */
+  background: linear-gradient(180deg, #020617 0%, #0f172a 60%, #1e293b 100%);
+  display: flex;
+  align-items: flex-end; /* Los edificios se apoyan en el suelo */
+  justify-content: center;
+  overflow: hidden; 
+}
+
+/* Contenedor del paisaje urbano */
+.skyline-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 50px;
+  padding-bottom: 20px;
+  box-shadow: inset 0 0 100px rgba(0,0,0,0.5); /* Viñeta sutil en los bordes */
+  position: relative; /* Clave para posicionar los astros de fondo */
+}
+
+/* Base de los edificios (Siluetas oscuras recortadas contra el cielo) */
+.building {
+  display: flex;
+  flex-direction: column;
+  background-color: #020617; /* Negro profundo para el cuerpo del bloque */
+  border: 1px solid #1e293b;
+  border-bottom: none;
+  padding: 15px;
+  box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.7); /* Sombra proyectada realista */
+  z-index: 2; /* Por encima de las estrellas y luna */
+}
+
+/* Alturas y anchuras de los edificios skyline */
+.b-hours { height: 60%; width: 180px; }
+.b-minutes { height: 85%; width: 240px; }
+.b-seconds { height: 75%; width: 240px; }
+
+/* Detalles estéticos de los techos */
+.roof-accent {
+  width: 110%;
+  height: 8px;
+  background-color: #0f172a;
+  margin: 0 auto 15px auto;
+  border-top: 2px solid #1e293b;
+}
+
+/* Estructura de las Grillas para Ventanas */
+.windows-grid {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  gap: 8px;
+}
+
+/* 6x4 (24 ventanas para horas) */
+.grid-24 {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+}
+
+/* 10x6 (60 ventanas para minutos y segundos) */
+.grid-60 {
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 6px;
+}
+
+/* --- ESTADOS DE LAS VENTANAS Y ANIMACIONES --- */
+
+/* Ventana APAGADA (Ventanas oscuras de oficinas vacías) */
+.window {
+  background-color: #1e293b; 
+  border: 1px solid #0f172a;
+  border-radius: 1px;
+  
+  /* Cuando el estado pasa de encendido a apagado, la luz se desvanece suavemente en 1.5s */
+  transition: background-color 1.5s ease-out;
+}
+
+/* Ventana ENCENDIDA (Luz de tungsteno/incandescente hogareña) */
+.window.on {
+  background-color: #fef3c7; /* Color crema cálido */
+  box-shadow: 0 0 15px rgba(254, 243, 199, 0.55); /* Iluminación suave hacia afuera */
+  
+  /* El encendido de la luz es instantáneo al cambiar el segundo */
+  transition: background-color 0.05s ease-in;
+}
+
+/* --- ELEMENTOS DEL CIELO NOCTURNO --- */
+
+/* Luna creciente realista usando sombras nativas */
+.moon {
+  position: absolute;
+  top: 50px;
+  right: 100px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: 12px 12px 0 0 #e2e8f0; /* Genera la silueta curvada */
+  filter: drop-shadow(0 0 8px rgba(226, 232, 240, 0.3));
+  z-index: 1;
+}
+
+/* Multi-foco de estrellas usando un mapeo de sombras CSS en un solo elemento */
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  z-index: 1;
+  box-shadow: 
+    150px 80px #ffffff,  300px 120px rgba(255,255,255,0.6), 450px 40px #ffffff,
+    700px 150px #ffffff, 850px 60px rgba(255,255,255,0.4),  950px 190px #ffffff,
+    120px 250px #ffffff, 550px 220px #ffffff,               620px 90px rgba(255,255,255,0.7),
+    220px 170px #ffffff, 780px 280px rgba(255,255,255,0.5), 900px 320px #ffffff,
+    380px 290px #ffffff, 1050px 110px #ffffff,              1150px 230px rgba(255,255,255,0.8),
+    50px 330px rgba(255,255,255,0.4), 480px 350px #ffffff,  1250px 70px #ffffff;
+}

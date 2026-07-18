@@ -5,10 +5,12 @@ import { RelojDigital } from '../clocks/reloj-digital/reloj-digital';
 import { RelojAnalogico } from '../clocks/reloj-analogico/reloj-analogico';
 import { RelojBinario } from '../clocks/reloj-binario/reloj-binario';
 import { RelojAnillos } from '../clocks/reloj-anillos/reloj-anillos';
+import { RelojEdificios } from '../clocks/reloj-edificios/reloj-edificios';
+import { RelojArena } from '../clocks/reloj-arena/reloj-arena';
 
 @Component({
   selector: 'app-panel',
-  imports: [RelojDigital, RelojAnalogico, RelojBinario, RelojAnillos],
+  imports: [RelojDigital, RelojAnalogico, RelojBinario, RelojAnillos, RelojEdificios, RelojArena],
   templateUrl: './panel.html',
   styleUrl: './panel.css'
 })
@@ -23,8 +25,8 @@ export class PanelComponent {
     { id: 'analogico', name: '2. Reloj Analógico' },
     { id: 'anillos', name: '3. Reloj de Anillos' },
     { id: 'binario', name: '4. Reloj Binario' },
-    { id: 'reloj5', name: '5. Vacío' },
-    { id: 'reloj6', name: '6. Vacío' },
+    { id: 'edificios', name: '5. Reloj Edificios' },
+    { id: 'arena', name: '6. Reloj Arena' },
     { id: 'reloj7', name: '7. Vacío' },
     { id: 'reloj8', name: '8. Vacío' },
     { id: 'reloj9', name: '9. Vacío' },

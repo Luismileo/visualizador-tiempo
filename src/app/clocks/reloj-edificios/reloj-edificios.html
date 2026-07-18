@@ -1,1 +1,37 @@
-<p>reloj-edificios works!</p>
+<div class="skyline-container">
+  
+  <!-- Elementos del cielo nocturno -->
+  <div class="moon"></div>
+  <div class="stars"></div>
+
+  <!-- Edificio Izquierdo (HORAS): 6x4 = 24 -->
+  <div class="building b-hours">
+    <div class="roof-accent"></div>
+    <div class="windows-grid grid-24">
+      @for (isOn of windows().hours; track $index) {
+        <div class="window" [class.on]="isOn"></div>
+      }
+    </div>
+  </div>
+
+  <!-- Edificio Central (MINUTOS): 10x6 = 60 -->
+  <div class="building b-minutes">
+    <div class="roof-accent"></div>
+    <div class="windows-grid grid-60">
+      @for (isOn of windows().minutes; track $index) {
+        <div class="window" [class.on]="isOn"></div>
+      }
+    </div>
+  </div>
+
+  <!-- Edificio Derecho (SEGUNDOS): 10x6 = 60 -->
+  <div class="building b-seconds">
+    <div class="roof-accent"></div>
+    <div class="windows-grid grid-60">
+      @for (isOn of windows().seconds; track $index) {
+        <div class="window" [class.on]="isOn"></div>
+      }
+    </div>
+  </div>
+
+</div>

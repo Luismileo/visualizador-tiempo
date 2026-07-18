@@ -1,0 +1,179 @@
+:host {
+  position: fixed;
+  top: 70px;
+  left: 260px;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* ENTORNO PLANO SIMPLIFICADO */
+.environment-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 100%);
+  transition: background 1.5s ease-in-out;
+  position: relative;
+}
+
+.environment-wrapper.night-mode {
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* --- CUERPO DEL RELOJ --- */
+.hourglass-simple {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 1.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Rotación total del componente */
+.hourglass-simple.flipped {
+  transform: rotate(180deg);
+}
+
+.flat-cap {
+  width: 160px;
+  height: 12px;
+  background: #334155;
+  border-radius: 4px;
+}
+
+.bulb {
+  position: relative;
+  width: 120px;
+  height: 95px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  
+  /* Gravedad por defecto (Día): La arena se apoya abajo */
+  justify-content: flex-end; 
+}
+
+/* EL TRUCO ÓPTICO: Al girar 180°, invertimos el apoyo para mantener la gravedad real */
+.hourglass-simple.flipped .bulb {
+  justify-content: flex-start;
+}
+
+.top-bulb { border-radius: 60px 60px 8px 8px; border-bottom: none; }
+.bottom-bulb { border-radius: 8px 8px 60px 60px; border-top: none; }
+
+.neck {
+  position: relative;
+  width: 16px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border-left: 2px solid rgba(255, 255, 255, 0.3);
+  border-right: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* --- ARENA PLANA Y CHORROS OCULTOS --- */
+.sand-body {
+  width: 100%;
+  background: #f59e0b;
+  z-index: 2; /* Pasa por DELANTE del chorro, tapándolo al subir */
+  transition: height 0.4s linear;
+}
+
+/* Línea de caída del cuello */
+.line-stream {
+  position: absolute;
+  width: 3px;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #d97706;
+  opacity: 0;
+}
+.line-stream.active {
+  opacity: 0.8;
+  animation: streamPulse 0.2s infinite alternate linear;
+}
+
+/* Chorro interno del bulbo inferior (Día): cae desde el cuello (arriba) */
+.interior-stream.fill-bottom {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 3px; height: 100%;
+  background: #d97706;
+  z-index: 1;
+}
+
+/* Chorro interno del bulbo superior (Noche): al estar invertido, el cuello está abajo estructuralmente */
+.interior-stream.fill-top {
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 3px; height: 100%;
+  background: #d97706;
+  z-index: 1;
+}
+
+@keyframes streamPulse {
+  0% { width: 2px; opacity: 0.5; }
+  100% { width: 4px; opacity: 0.9; }
+}
+
+/* --- PAISAJE DINÁMICO MEJORADO --- */
+.sky-elements { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; }
+.sun { position: absolute; top: 60px; left: 12%; width: 65px; height: 65px; background: #fef08a; border-radius: 50%; transition: transform 1.5s ease-in-out, opacity 1s; }
+.night-mode .sun { transform: translateY(-120px); opacity: 0; }
+.moon { position: absolute; top: 60px; right: 12%; width: 55px; height: 55px; background: transparent; border-radius: 50%; box-shadow: 14px 14px 0 0 #f1f5f9; transition: transform 1.5s ease-in-out, opacity 1s; transform: translateY(120px); opacity: 0; }
+.night-mode .moon { transform: translateY(0); opacity: 1; }
+
+/* Nubes en movimiento continuo (Día) */
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
+  transition: opacity 1s ease-in-out;
+}
+.c1 { width: 100px; height: 25px; top: 20%; left: -120px; animation: floatCloud 35s infinite linear; }
+.c2 { width: 70px; height: 20px; top: 32%; left: -90px; animation: floatCloud 25s infinite linear; animation-delay: 6s; }
+.night-mode .cloud { opacity: 0; }
+
+@keyframes floatCloud {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(100vw + 150px)); }
+}
+
+/* Estrellas parpadeantes (Noche) */
+.stars-container { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1.5s; }
+.night-mode .stars-container { opacity: 1; }
+.star { position: absolute; width: 3px; height: 3px; background: #ffffff; border-radius: 50%; animation: starBlink 2s infinite alternate; }
+.s1 { top: 15%; left: 25%; animation-delay: 0.2s; }
+.s2 { top: 22%; left: 70%; animation-delay: 0.8s; }
+.s3 { top: 40%; left: 40%; animation-delay: 0.4s; }
+.s4 { top: 12%; left: 85%; animation-delay: 1.2s; }
+
+@keyframes starBlink {
+  0% { opacity: 0.2; }
+  100% { opacity: 1; }
+}
+
+/* Contador Digital */
+.ambient-counter {
+  background: rgba(15, 23, 42, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #334155;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-family: monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.night-mode .ambient-counter { color: #38bdf8; background: rgba(255, 255, 255, 0.03); border-color: rgba(56, 189, 248, 0.15); }
